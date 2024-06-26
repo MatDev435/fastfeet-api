@@ -1,8 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { AdminAlreadyExistsError } from './errors/admin-already-exists'
-import { Admin } from '../../enterprise/entities/Admin'
+import { Admin } from '../../enterprise/entities/admin'
 import { AdminsRepository } from '../repositories/admins-repository'
-import { hash } from 'bcryptjs'
 import { HashGenerator } from '../cryptography/hash-generator'
 
 interface RegisterAdminUseCaseRequest {
