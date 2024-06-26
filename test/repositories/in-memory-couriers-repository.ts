@@ -5,6 +5,16 @@ import { Courier } from '@/domain/users/enterprise/entities/courier'
 export class InMemoryCouriersRepository implements CouriersRepository {
   public items: Courier[] = []
 
+  async findById(courierId: string): Promise<Courier> {
+    const courier = this.items.find((item) => item.id.toString() === courierId)
+
+    if (!courier) {
+      return null
+    }
+
+    return courier
+  }
+
   async findByCpf(cpf: string): Promise<Courier> {
     const courier = this.items.find((item) => item.cpf === cpf)
 
@@ -19,6 +29,12 @@ export class InMemoryCouriersRepository implements CouriersRepository {
     const couriers = this.items.splice((page - 1) * 20, page * 20)
 
     return couriers
+  }
+
+  async save(courier: Courier): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === courier.id)
+
+    this.items[itemIndex] = courier
   }
 
   async create(courier: Courier): Promise<void> {
